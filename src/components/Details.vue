@@ -14,15 +14,15 @@
                           </li>
                           <li>
                               <h3 class="weight-normal" >LANGUAGE</h3>
-                              <h3>ENGLISH</h3>
+                              <h3>English</h3>
                           </li>
                           <li>
                               <h3 class="weight-normal" >RELISE DATE</h3>
-                              <h3>14 JAN 2019</h3>
+                              <h3>{{myMovieData.movie_ctime}}</h3>
                           </li>
                           <li>
                               <h3 class="weight-normal" >DIRECTOR</h3>
-                              <h3>CHRISTIAN RIVERS</h3>
+                              <h3>{{myMovieData.movie_director}}</h3>
                           </li>
                       </ul>
                   </div>
@@ -32,8 +32,7 @@
                     <h3>STORYLINE</h3>
                    </div>
                    <div class="storyline-block mt-3">
-                       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis iure, eos facere eius suscipit repudiandae, voluptas illum corporis praesentium, officiis explicabo quia magni inventore quibusdam distinctio vero quisquam optio? Eaque?</p>
-                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis iure, eos facere eius suscipit repudiandae, voluptas illum corporis praesentium, officiis explicabo quia magni inventore quibusdam distinctio vero quisquam optio? Eaque?</p>
+                       <p>{{myMovieData.movie_info}}</p>
                    </div>
                </div>
     </div>
@@ -70,8 +69,14 @@
         width: 80%;
         border-bottom:3px solid rgba($color: grey, $alpha: 0.4)
     }
-    .storyline-block p:first-child{
-        margin-bottom: 50px;
+    .storyline-block {
+        line-height: 30px;
+        font-size: 20px;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
     }
     @media screen and (max-width: 768px){
        .col-md-6 {
@@ -85,3 +90,21 @@
        };
     }
 </style>
+
+<script>
+export default {
+    props:["movieData"],
+    data(){
+        return{
+            myMovieData:'',
+        }
+    },
+    watch:{
+        movieData(newV){
+            this.myMovieData = newV;
+            console.log("監測中")
+            console.log(this.myMovieData)
+        }
+    }
+}
+</script>

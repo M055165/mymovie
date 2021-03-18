@@ -3,15 +3,15 @@
     <!-- 圖片區 -->
     <div class="slideshow">
       <ul>
-        <li v-for="(img, index) in imgArray" :key="index" v-show="index===markIndex">
-          <img :src="img" alt />
+        <li v-for="(img, index) in movieData" :key="index" v-show="index===markIndex">
+          <img :src="img['img_big']" alt />
         </li>
       </ul>
     </div>
-
+  
     <!-- 小點點區 -->
     <div class="bar">
-      <span v-for="(item,index) in imgArray" :key="index" @click="point(index)" :class="{'active': index===markIndex}"></span>
+      <span v-for="(item,index) in 6" :key="index" @click="point(index)" :class="{'active': index===markIndex}"></span>
     </div>
   </div>
 </template>
@@ -19,15 +19,10 @@
 
 <script>
 export default {
+  props:['movieData'],
   data() {
     return {
       markIndex: 0, //小點點下標
-      imgArray: [
-        "https://images8.alphacoders.com/553/thumb-1920-553032.jpg",
-        "https://images4.alphacoders.com/573/thumb-1920-57394.jpg",
-        "https://images5.alphacoders.com/735/thumb-1920-735001.jpg",
-        "https://images4.alphacoders.com/814/thumb-1920-81446.jpg",
-      ],
     };
   },
   methods: {
@@ -38,7 +33,7 @@ export default {
     let vm = this;
     setInterval(function(){
       vm.markIndex ++;
-      if(vm.markIndex >=vm.imgArray.length){
+      if(vm.markIndex >=vm.movieData.length){
         vm.markIndex =0
       }
     },5000)

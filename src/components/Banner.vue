@@ -1,16 +1,14 @@
 <template>
-  <div id="app">
-  </div>
+  <div id="app" ref="bg" :style="{ backgroundImage: 'url(' + myMovieData + ')' }"> 
+       </div>
 </template>
-
-
 
 
 
 <style lang="scss" scoped>
     #app {
-        height: 60vh;
-        background-image: url("https://images8.alphacoders.com/707/thumb-1920-707447.png");
+        color:white;
+        height: 90vh;
         background-position: center center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -18,8 +16,24 @@
     @media screen and (max-width: 768px) {
     #app {
         width: 100%;
-     height: 40vh;
+         height: 40vh;
     }
     }   
-    
 </style>
+<script>
+export default {
+    props:["movieData"],
+    data(){
+        return {
+            myMovieData:[{"img_big":"123"}]
+        }
+    },
+    watch:{
+        movieData(newV){
+            this.myMovieData = newV[0].img_big;
+            console.log("已改變")
+            console.log(this.myMovieData)
+        }
+    }
+}
+</script>

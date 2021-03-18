@@ -6,25 +6,25 @@
                     <div class="header_info col-md-8">
                     <i class="far fa-heart"></i>
                     <div class="info_detail">
-                        <h1 class="mr-2">刺激1995</h1>
-                        <span>(1994)</span>
-                        <h2 class="mt-2">The Shawshank Redemption</h2>
-                        <h2 class="mt-2">R-12 | 2h 22min | Drama | 10 March 1995 </h2>
+                        <h1 class="mr-2">{{myMovieData.movie_tname}}</h1>
+                        <span>({{(myMovieData.movie_ctime).split(' ')[2]}})</span>
+                        <h2 class="mt-2">{{myMovieData.movie_ename}}</h2>
+                        <h2 class="mt-2">R-{{myMovieData.movie_age}} | 2h 22min | {{myMovieData.movie_type}} | {{myMovieData.movie_ctime}} </h2>
                     </div>
                 </div>
                 <div class="header_rate col-md-4">
-                   <i class="fas fa-star"></i> 9.3/10
+                   <i class="fas fa-star"></i> {{myMovieData.movie_rank}}/10
                 </div>
                 </div>
             </div>
-            <img src="https://vbmspic.video.friday.tw/STILL/51009/51009_72379_L.jpg" alt="">
+            <img :src="myMovieData.img_big" alt="">
         </div>
         <div class="info">
             <hr>
-            <h1 class="intro mt-3 mb-4">Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.</h1>
-            <h2 class="my-2">Director: <small>Frank Darabont</small></h2>
-            <h2 class="my-2">Writers: <small>Stephen King,Frank Darabont</small></h2>
-            <h2 class="my-2">Stars: <small> Tim Robbins, Morgan Freeman, Bob Gunton</small></h2>
+            <h1 class="intro mt-3 mb-4">{{myMovieData.movie_info}}</h1>
+            <h2 class="my-2">Director: <small>{{myMovieData.movie_director}}</small></h2>
+            <h2 class="my-2">Writers: <small>{{myMovieData.movie_writer}}</small></h2>
+            <h2 class="my-2">Stars: <small> {{myMovieData.movie_star}}</small></h2>
         </div>        
     </div>
 </template>
@@ -100,3 +100,22 @@
     }
 
 </style>
+
+
+<script>
+export default {
+    props:['movieData'],
+    data(){
+        return {
+            myMovieData:{
+                movie_ctime:'abc cde def'
+            }
+        }
+    },
+    watch:{
+        movieData(newValue){
+            this.myMovieData = newValue;
+        }
+    }
+}
+</script>

@@ -7,10 +7,10 @@
         
       </div>
       <ul class="nav-links" :class="{'navactive':burgerFlag}">
-        <li><router-link to="/info">Home</router-link></li>
+        <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/top100">Top100</router-link></li>
         <li><router-link to="/bookinglist">Booking</router-link></li>
-        <li><a href="#">Project</a></li>
+        <li><router-link to="/login">Login</router-link></li>
       </ul>
       <div class="burger" :class="{'toggle':burgerFlag}" @click="burgerClick">
         <div class="line1"></div>

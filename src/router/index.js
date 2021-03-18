@@ -5,6 +5,7 @@ import Top100 from '../views/Top100.vue'
 import Moviepage from '../views/MoviePage.vue'
 import Bookinglist from '../views/Bookinglist.vue'
 import Ticket from '../views/Ticketpage.vue'
+import Login from '../views/LoginPage.vue'
 
 
 const routes = [
@@ -14,8 +15,13 @@ const routes = [
     component: Home
   },
   {
-    path: '/info',
-    name: 'Info',
+    path: '/running/:movieId',
+    name: 'running',
+    component: Detail
+  },
+  {
+    path: '/comming/:movieId',
+    name: 'comming',
     component: Detail
   },
   {
@@ -24,7 +30,7 @@ const routes = [
     component: Top100
   },
   {
-    path: '/detail',
+    path: '/detail/:movieId',
     name: 'detail',
     component: Moviepage
   },
@@ -37,6 +43,11 @@ const routes = [
     path: '/ticket',
     name: 'ticket',
     component: Ticket
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   }
 ]
 

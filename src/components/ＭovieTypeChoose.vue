@@ -3,25 +3,25 @@
        <div class="container mt-5">
            <div class="header">
                <div class="movie-info">
-                   <h3>My Hero Scool</h3>
-                   <small class="mt-2">120 min</small>
-                   <small>Adventure</small>
+                   <h1>{{myMovieData.movie_tname}}</h1>
+                   <h5 class="mt-2">{{myMovieData.movie_long}} min</h5>
+                   <h5>{{myMovieData.movie_type}}</h5>
                </div>
                <div class="imdb-rate">
-                   <h3>IMDB 8.5</h3>
+                   <h1>IMDB {{myMovieData.movie_rank}}</h1>
                </div>
            </div>
            <div class="row mt-5">
             <div class="left col-md-12 col-lg-3 ">
                 <div class="box">
-                     <img src="https://img.ruten.com.tw/s2/7/b3/9c/21712580001692_221.jpg" alt="">
+                     <img :src="myMovieData.img_s1" alt="">
                 </div>
                 <ul class="type-list mt-3">
-                    <li class="yes">2D<i class="far fa-check-circle"></i></li>
-                    <li>3D</li>
-                    <li>IMAX</li>
-                    <li class="yes">IMAX 3D<i class="far fa-check-circle"></i></li>
-                    <li class="yes">CINEMA 4D<i class="far fa-check-circle"></i></li>
+                    <li :class="{ yes: myMovieData['2d_t'] !== null }">2D <i class="far fa-check-circle" :class="{ dnone: myMovieData['3d_t'] == null }"></i></li>
+                    <li :class="{ yes: myMovieData['3d_t'] !== null }">3D <i class="far fa-check-circle" :class="{ dnone: myMovieData['3d_t'] == null }"></i></li>
+                    <li :class="{ yes: myMovieData['imax_t'] !== null }">IMAX <i class="far fa-check-circle" :class="{ dnone: myMovieData['imax_t'] !== null }"></i></li>
+                    <li :class="{ yes: myMovieData['imax3d_t'] !== null }">IMAX 3D <i class="far fa-check-circle" :class="{ dnone: myMovieData['imax3d_t'] !== null }"></i></li>
+                    <li :class="{ yes: myMovieData['cinema4d_t'] !== null }">CINEMA 4D <i class="far fa-check-circle" :class="{ dnone: myMovieData['cinema4d_t'] == null }"></i></li>
                 </ul>
             </div>
             <div class="right  col-lg-9">
@@ -73,52 +73,38 @@
                     <ul class="time-list mt-3">
                         <li>
                             <small>2D:</small>
-                            <div class="time-block">
-                                <p>11:30 am</p>
+                            <div class="time-block" v-for="(item,index) in t_2d" :key="index">
+                                <p>{{item}}</p>
                             </div>
-                            <div class="time-block">
-                                <p>5:00 am</p>
+                            
+                        </li>
+                      <li>
+                            <small>3D:</small>
+                            <div class="time-block" v-for="(item,index) in t_3d" :key="index">
+                                <p>{{item}}</p>
                             </div>
-                            <div class="time-block">
-                                <p>7:45 pm</p>
-                            </div>
-                             <div class="time-block">
-                                 <p>10:30 pm</p>
-                             </div>
+                            
                         </li>
                         <li>
-                             <small>3D:</small>
-                             <div class="time-block">
-                                <p>5:00 am</p>
+                            <small>IMAX:</small>
+                            <div class="time-block" v-for="(item,index) in t_imax" :key="index">
+                                <p>{{item}}</p>
                             </div>
-                            <div class="time-block">
-                                <p>7:00 pm</p>
-                            </div>
+                            
                         </li>
                         <li>
-                             <small>IMAX:</small>
-                             <div class="time-block">
-                                <p>5:00 am</p>
-                            </div>
-                             <div class="time-block">
-                                <p>7:45 pm</p>
-                            </div>
-                        </li>
-                        <li> 
                             <small>IMAX 3D:</small>
-                            <div class="time-block">
-                                <p>5:00 am</p>
+                            <div class="time-block" v-for="(item,index) in t_imax3d" :key="index">
+                                <p>{{item}}</p>
                             </div>
-                            <div class="time-block">
-                                <p>7:45 pm</p>
-                            </div>
-                             <div class="time-block">
-                                 <p>10:30 pm</p>
-                             </div></li>
+                            
+                        </li>
                         <li>
-                            <small>
-                                CINEMA 4D
-                            </small>
+                            <small>CINEMA 4D:</small>
+                            <div class="time-block" v-for="(item,index) in t_cinema4d" :key="index">
+                                <p>{{item}}</p>
+                            </div>
+                            
                         </li>
                     </ul>
                 </div>
@@ -129,13 +115,13 @@
     </div>
 </template>
 
-<script>
-export default {
-    
-}
-</script>
+
 
 <style lang="scss" scoped >
+.dnone {
+    display: none!important;
+}
+
 #app {
     color:white;
     font-weight: bold;
@@ -146,6 +132,7 @@ p {
 small {
     display: none!important;
 }
+
 a {
     cursor: pointer;
     text-decoration: none!important;
@@ -171,6 +158,17 @@ a {
        font-size: 14px;
        display: block;
        color:grey;
+   }
+   .movie-info {
+       display: flex;
+       flex-direction: column;
+       align-items: flex-start;
+       h5 {
+           margin-top: 2px;
+           font-size: 16px;
+           color:#dcdcdc;
+           opacity: 0.4;
+       }
    }
 
 //left
@@ -230,25 +228,24 @@ li {
 }
 
 h3{
-    font-size: 20px;
+    font-size: 25px;
+}
+h2 {
+    font-size: 60px;
 }
 
-h2 {
-    font-size: 50px;
-}
 
 .time-list {
 width: 100%;
-margin-left: 40px;
 }
 .time-list li{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     margin: 10px 0;
     width: 100%;
-    height: 50px;
-    padding-bottom: 10px;
+    height: 52px;
+    padding-bottom: 0px;
     border-bottom:3px solid rgba($color: grey, $alpha: 0.15);
 }
 .time-list .time-block {
@@ -269,7 +266,7 @@ margin-left: 40px;
     height: 150px;
 }
 h3 {
-    font-size:13px;
+    font-size:14px;
 }
 h2 {
     font-size:38px;
@@ -282,5 +279,79 @@ h2 {
 small {
     display: block!important;
 }
+p {
+    font-size: 14px;
+}
+}
+@media screen and (max-width: 350px){
+
+.right {
+    
+}
+.date-list {
+    height: 150px;
+}
+h3 {
+    max-lines: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size:5px;
+}
+h2 {
+    font-size:30px;
+}
+.time-list li{
+    justify-content: space-between;
+    margin-left: 0px;
+    padding-right: 13px;
+}
+small {
+    font-size: 10px;
+    display: block;
+}
+p {
+    font-size: 10px;
+}
 }
 </style>
+
+<script>
+export default {
+    props:["movieData"],
+    data(){
+        return {
+            myMovieData:'',
+            t_2d:[],
+            t_3d:[],
+            t_imax:[],
+            t_imax3d:[],
+            t_cinema4d:[],
+        }
+    },
+    watch:{
+        movieData(newV){
+            this.myMovieData = newV;
+            if(this.myMovieData['2d_t'] !== null) {
+                this.t_2d = this.myMovieData['2d_t'].split(',');
+            }
+             if(this.myMovieData['3d_t'] !== null) {
+                this.t_3d = this.myMovieData['3d_t'].split(',');
+            }
+             if(this.myMovieData['imax_t'] !== null) {
+                this.t_imax = this.myMovieData['imax_t'].split(',');
+            }
+             if(this.myMovieData['imax3d_t'] !== null) {
+                this.t_imax3d = this.myMovieData['imax3d_t'].split(',');
+            }
+             if(this.myMovieData['cinema4d_t'] !== null) {
+                this.t_cinema4d = this.myMovieData['cinema4d_t'].split(',');
+            }
+            console.log(this.t_2d)
+            console.log(this.t_3d)
+            console.log(this.t_imax)
+            console.log(this.t_imax3d)
+            console.log(this.t_cinema4d)
+        }
+    }
+}
+</script>

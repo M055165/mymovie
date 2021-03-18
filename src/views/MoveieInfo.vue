@@ -1,10 +1,10 @@
 <template>
 <div id="app">
  <navbar></navbar>
- <banner></banner>
-<movietypechoose></movietypechoose>
-<detail></detail>
-<cast></cast>
+ <banner :movieData='movieData'></banner>
+<movietypechoose :movieData='movieData[0]'></movietypechoose>
+<detail :movieData='movieData[0]'></detail>
+<cast :movieData='movieData[0]'></cast>
  <myfooter></myfooter>
 </div>
  
@@ -17,8 +17,30 @@ import movietypechoose from '../components/ＭovieTypeChoose'
 import detail from '../components/Details'
 import cast from '../components/Cast'
 import myfooter from '../components/Footer'
+import axios from 'axios';
+
 export default {
-  components: { navbar, banner,movietypechoose,detail,cast,myfooter},
+  data(){
+   return {
+     movieData:{}
+   }
+ },
+components: { navbar, banner,movietypechoose,detail,cast,myfooter},
+methods:{
+  getMovieData(){
+    let movieType = this.$route.name;
+    let movieId = this.$route.params.movieId ;
+    let api = `http://192.168.43.145:8800/${movieType}/${movieId}`
+    axios.get(api).then((res)=>{
+        this.movieData = res.data;
+        console.log("成功獲取資料")
+        console.log(this.movieData)
+    })
+  }
+},
+ mounted(){
+  this.getMovieData()
+ },
 }
 </script>
 
@@ -32,3 +54,4 @@ export default {
 }
 
 </style>
+

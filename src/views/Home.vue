@@ -1,9 +1,9 @@
 <template>
 <div class="app">
  <navbar></navbar>
- <carousel></carousel>
- <commingsoon></commingsoon>
- <playing></playing>
+ <carousel :movieData="runningData"></carousel>
+ <commingsoon :movieData="runningData" type="running">Running</commingsoon>
+ <commingsoon :movieData="commingData" type="comming">comming</commingsoon>
  <myfooter></myfooter>
 </div>
  
@@ -13,11 +13,35 @@
 import navbar from '../components/navbar'
 import carousel from '../components/Carousel'
 import commingsoon from '../components/Commingsoon';
-import playing from '../components/Playing'
 import myfooter from '../components/Footer'
-export default {
-  components: { navbar, carousel,commingsoon,playing,myfooter},
-  
+import axios from 'axios';
+export default { 
+  data(){
+    return {
+      runningData:{},
+      commingData:{}
+    }
+  },
+  components: { navbar, carousel,commingsoon,myfooter},
+  methods:{
+getCommingData(){
+        let api = 'http://192.168.43.145:8800/comming/all'
+        axios.get(api).then((res)=>{
+        this.commingData = res.data;
+    })
+  },
+  getRunningData(){
+        let api = 'http://192.168.43.145:8800/running/all'
+        axios.get(api).then((res)=>{
+        this.runningData = res.data;
+    })
+  },
+  },
+mounted(){
+  this.getCommingData()
+    this.getRunningData()
+
+}
 }
 </script>
 
@@ -31,3 +55,4 @@ body {
   box-sizing: border-box;
 }
 </style>
+

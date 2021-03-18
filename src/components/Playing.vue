@@ -1,7 +1,7 @@
 <template>
   <div class="Container ">
     <div class="header">
-      <h2>Comming soon123</h2>
+      <h2>Comming soon</h2>
     </div>
     <div class="box mt-3">
       <div class="row">

@@ -7,25 +7,10 @@
                 </div>
                 <div class="content">
                     <ul class="cast">
-                        <li class="cast_item">
-                                <div class="cast_img">
+                        <li class="cast_item" v-for="(item,index) in data" :key="index">
+                                <div class="cast_img" :style="{ backgroundImage: 'url(' + item.castUrl + ')' }">
                             </div>
-                            <p> 多拉A夢</p>
-                        </li>
-                        <li class="cast_item">
-                                <div class="cast_img">
-                            </div>
-                            <p> 蠟筆小新</p>
-                        </li>
-                        <li class="cast_item">
-                                <div class="cast_img">
-                            </div>
-                            <p> 兵長里維</p>
-                        </li>
-                        <li class="cast_item">
-                                <div class="cast_img">
-                            </div>
-                            <p> 五條悟</p>
+                            <p> {{item.star}}</p>
                         </li>
                     </ul>
                 </div>
@@ -36,25 +21,17 @@
                 </div>
                 <div class="content">
                     <div class="gallery_box">
-                        <img src="https://3.bp.blogspot.com/-6r1QT9sJr3A/XDAniuD6YdI/AAAAAAAAAic/sqs8MqfDHD8vCmy1ywzxlnjHPOHrSSyZwCLcBGAs/s1600/tree-sea-grass-nature-451855.jpeg" alt="">
+                        <img :src="wallpaper_bg[currentIndex]" alt="">
                     </div>
                     <div class="gallery_pick">
-                        <a href="#" @click.prevent="abc">
+                        <a href="#" @click.prevent="photoGo(-1)">
                             <i class="fas fa-arrow-left" ></i>
                         </a>
                     <ul class="gallery_item_box">
-                        <li class="gallery_item" @click="abc">
-                        </li>
-                        <li class="gallery_item" @click="abc">
-                        </li>
-                        <li class="gallery_item" @click="abc">
-                        </li>
-                        <li class="gallery_item" @click="abc">
-                        </li>
-                        <li class="gallery_item" @click="abc">
+                        <li class="gallery_item"  v-for="(item,index) in (myMovieData.wallpaper_img).split(',')" :key="index" :style="{ backgroundImage: 'url(' + item + ')' }" @click="changePhoto(index)">
                         </li>
                     </ul>
-                    <a href="#" @click.prevent="abc">
+                    <a href="#" @click.prevent="photoGo(1)">
                             <i class="fas fa-arrow-right" ></i>
                         </a>
                     </div>
@@ -68,15 +45,57 @@
 
 <script scoped>
 export default {
+   props:['movieData'],
    data(){
        return {
-           msg:123
+           myMovieData:{
+               wallpaper_img:""
+           },
+           data:[],
+           currentIndex:0
+       }
+   },
+   computed:{
+       wallpaper_bg(){
+           return (this.myMovieData.wallpaper_img).split(',');
+       }
+   },
+   watch:{
+       movieData(newV){
+           this.myMovieData = newV;
+           this.makeData();
        }
    },
    methods:{
-       abc(){
-           alert("1234")
-       }
+       makeData(){
+           for(let i = 0;i<(this.myMovieData.movie_star).split(',').length;i++){
+               console.log("i"+i);
+               this.data.push(
+                   {
+                       star:(this.myMovieData.movie_star).split(',')[i],
+                       castUrl:(this.myMovieData.cast_img).split(',')[i],
+                   }
+                   )
+           }
+           console.log(this.data[1].star)
+       },
+       changePhoto(index){
+           this.currentIndex = index;
+       },
+       photoGo(go){
+             if(go == 1) {
+                 this.currentIndex += 1
+                 if(this.currentIndex > this.wallpaper_bg.length-1){
+                     this.currentIndex = 0;
+                 }
+             }else {
+                 this.currentIndex += -1;
+                 if (this.currentIndex <0){
+                     this.currentIndex = this.wallpaper_bg.length -1;
+                 }
+             }
+           }
+       
    },
    components:{
        
@@ -109,14 +128,20 @@ export default {
        justify-content: space-evenly;
        align-items: center;
        margin-bottom: 20px;
+       p {
+           font-size: 20px;
+           display: flex;
+           justify-content: center;
+           width: 200px;
+       }
    }
    .cast_img {
-       width: 50px;
-       height: 50px;
+       width: 70px;
+       height: 70px;
        overflow: hidden;
        border-radius: 50%;
        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);;
-       background-image: url("https://live.staticflickr.com/65535/50117280668_4f96de53c4_z.jpg");
+       background-image: url("https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQyNjgwMDQ0NjE4MTMwNzU4/gettyimages-503700338jpg.jpg");
        background-position: center center;
        background-size: cover;
    }
@@ -180,6 +205,5 @@ export default {
        }
        
     }
-    
-   
 </style>
+

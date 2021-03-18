@@ -13,127 +13,13 @@
         </tr>
     </thead>
     <tbody >
-      <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><router-link to="/detail"> 1. 刺激1995<span>(1994)</span></router-link></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
+      <tr v-for="(item, index) in myMovieData" :key="index">
+            <td class="middle"><img :src="item.img_s1" alt=""></td>
+            <td  class="middle"><router-link class="movie_name" :to="`/detail/${index+1}`" > {{item.id}}. {{item.movie_tname}}<span>({{(item.movie_ctime).split(' ')[2]}})</span></router-link></td>
+            <td  class="middle"><i class="fas fa-star "></i>&nbsp;{{item.movie_rank}}</td>
             <td  class="middle"><i class="far fa-star empty"></i></td>
         </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr> <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
-         <tr >
-            <td class="middle"><img src="https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg" alt=""></td>
-            <td  class="middle"><a href="#"> 1. 刺激1995<span>(1994)</span></a></td>
-            <td  class="middle"><i class="fas fa-star "></i>&nbsp;9.2</td>
-            <td  class="middle"><i class="far fa-star empty"></i></td>
-        </tr>
+        
     </tbody>
 </table>
     </div>
@@ -177,5 +63,34 @@
     .empty {
         color:gray;
     }
+    a,router-link{
+        text-decoration: none!important;
+    }
+    .movie_name {
+        max-lines: 1;
+        white-space: nowrap;
+        text-overflow: ellipse;
+    }
+    img {
+        width: 70px;
+        height: 80px;
+        border-radius: 10px;
+    }
     
 </style>
+
+<script>
+export default {
+    props:['movieData'],
+    data(){
+        return {
+            myMovieData:''
+        }
+    },
+    watch:{
+        movieData(newValue){
+            this.myMovieData = newValue;
+        }
+    }
+}
+</script>
