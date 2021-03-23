@@ -36,12 +36,12 @@ const routes = [
   },
   {
     path: '/bookinglist',
-    name: 'booking',
+    name: 'bookinglist',
     component: Bookinglist
   },
   {
-    path: '/ticket',
-    name: 'ticket',
+    path: '/booking/:movieId',
+    name: 'booking',
     component: Ticket
   },
   {

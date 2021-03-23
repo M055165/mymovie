@@ -5,33 +5,36 @@
         </div>
         <div class="type">
             <ul class="typelist">
-                <li>All frames</li>
-                <li>2D</li>
-                <li class="red">3D</li>
-                <li>IMAX</li>
-                <li class="red">IMAX 3D</li>
-                <li>CINEMA 4D</li>
+                <li :class="{red:movietype==0}" @click="changeType(0)">All frames</li>
+                <li :class="{red:movietype==1}" @click="changeType(1)" >2D</li>
+                <li :class="{red:movietype==2}" @click="changeType(2)">3D</li>
+                <li :class="{red:movietype==3}" @click="changeType(3)">IMAX</li>
+                <li :class="{red:movietype==4}" @click="changeType(4)">IMAX 3D</li>
+                <li :class="{red:movietype==5}" @click="changeType(5)">CINEMA 4D</li>
             </ul>
         </div>
         <ul class="movielist">
-            <li class="movielist_item">
+            <li class="movielist_item" v-for="(item,index) in tempData" :key="index">
                 <div class="row">
                 <div class="movie_info col-md-4">
-                    <img src="https://img.ruten.com.tw/s2/7/b3/9c/21712580001692_221.jpg" alt="">
+                    <img :src="item.img_s1" alt="">
                     <ul class="movie_info_type">
-                        <li>2D</li>
-                        <li>IMAX</li>
+                        <li :class="{'d-none':movietype!==1}">2D</li>
+                        <li :class="{'d-none':movietype!==2}">3D</li>
+                        <li :class="{'d-none':movietype!==3}">IMAX</li>
+                        <li :class="{'d-none':movietype!==4}">IMAX 3D</li>
+                        <li :class="{'d-none':movietype!==5}">CINEMA 4D</li>
                     </ul>
                 </div>
                 <div class="movie_detail col-md-8">
                     <div class="movie_date">
                         <div class="movie_header">
                             <div class="movie_name">
-                                <h1>DUNKIRK</h1>
-                                <h2>IMDB 8.2</h2>
+                                <h1>{{item.movie_tname}}</h1>
+                                <h2>IMDB {{item.movie_rank}}</h2>
                             </div>
                             <div class="movie_type">
-                                <small>120 min | ADVENTURE</small>
+                                <small>{{item.movie_long}} min | {{item.movie_type}}</small>
                             </div>
                             <div class="movie_day">
                                 <div class="date">
@@ -39,60 +42,75 @@
                                          <li>
                                         <h2>Monday</h2>
                                         <h1>17</h1>
-                                        <small>Feb</small>
+                                        <small>February</small>
                                         </li>
                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
+                                        <h2>Tuesday</h2>
+                                        <h1>18</h1>
+                                        <small>February</small>
                                         </li>
                                         <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
+                                        <h2>Wednesday</h2>
+                                        <h1>19</h1>
+                                        <small>February</small>
                                         </li>
                                         <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
+                                        <h2>Thursday</h2>
+                                        <h1>20</h1>
+                                        <small>February</small>
                                         </li>
                                         <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
+                                        <h2>Friday</h2>
+                                        <h1>21</h1>
+                                        <small>February</small>
                                         </li>
                                     </ul>
                                 </div>
                               <ul class="time">
-                                  <li>
+                                  <li v-if="item['2d_t']">
                                       <ul>
-                                          <i class="type_title">3D</i>
-                                          <li>
-                                              11:30 am
+                                          <i class="type_title">2D</i>
+                                          <li v-for="(value,index) in item['2d_t'].split(',')" :key="index">
+                                              {{value}}
                                           </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                          <li>9:00 pm</li>
                                       </ul>
                                   </li>
-                                  <li>
+                                   <li v-if="item['3d_t']">
                                       <ul>
-                                          <i class="type_title">4D</i>
-                                          <li>
-                                              <span>11:30 am</span>
+                                         <i class="type_title">3D</i>
+                                          <li v-for="(value,index) in item['3d_t'].split(',')" :key="index">
+                                              {{value}}
                                           </li>
-                                          <li>
-                                              12:30 am
+                                      </ul>
+                                  </li>
+                                   <li v-if="item['imax_t']">
+                                      <ul>
+                                          <i class="type_title">IMAX</i>
+                                          <li v-for="(value,index) in item['imax_t'].split(',')" :key="index">
+                                              {{value}}
                                           </li>
-                                          <li>6:45 pm</li>
+                                      </ul>
+                                  </li>
+                                   <li v-if="item['imax3d_t']">
+                                      <ul>
+                                         <i class="type_title">IMAX 3D</i>
+                                          <li v-for="(value,index) in item['imax3d_t'].split(',')" :key="index">
+                                              {{value}}
+                                          </li>
+                                      </ul>
+                                  </li>
+                                   <li v-if="item['cinema4d_t']">
+                                      <ul>
+                                          <i class="type_title">CINEMA 4D</i>
+                                          <li v-for="(value,index) in item['cinema4d_t'].split(',')" :key="index">
+                                              {{value}}
+                                          </li>
                                       </ul>
                                   </li>
                               </ul>
                                     <div class="gotobuy">
-                                        <p @click="clickabc()">點我去訂票</p>
-                                        <p @click="clickabc()"> <i class="fas fa-long-arrow-alt-right goto_arrow"></i></p>
+                                        <p @click="goToBook(index)">點我去訂票</p>
+                                        <p @click="goToBook(index)"> <i class="fas fa-long-arrow-alt-right goto_arrow"></i></p>
                                   </div>
                             </div>
                         </div>
@@ -100,437 +118,6 @@
                 </div>
                 </div>
             </li>
-            <li class="movielist_item">
-                <div class="row">
-                <div class="movie_info col-md-4">
-                    <img src="https://img.ruten.com.tw/s2/7/b3/9c/21712580001692_221.jpg" alt="">
-                    <ul class="movie_info_type">
-                        <li>2D</li>
-                        <li>IMAX</li>
-                    </ul>
-                </div>
-                <div class="movie_detail col-md-8">
-                    <div class="movie_date">
-                        <div class="movie_header">
-                            <div class="movie_name">
-                                <h1>DUNKIRK</h1>
-                                <h2>IMDB 8.2</h2>
-                            </div>
-                            <div class="movie_type">
-                                <small>120 min | ADVENTURE</small>
-                            </div>
-                            <div class="movie_day">
-                                <div class="date">
-                                    <ul>
-                                         <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                       <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                    </ul>
-                                </div>
-                              <ul class="time">
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">3D</i>
-                                          <li>
-                                              11:30 am
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                          <li>9:00 pm</li>
-                                      </ul>
-                                  </li>
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">4D</i>
-                                          <li>
-                                              <span>11:30 am</span>
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                      </ul>
-                                  </li>
-                              </ul>
-                                    <div class="gotobuy">
-                                        <p @click="clickabc()">點我去訂票</p>
-                                        <p @click="clickabc()"> <i class="fas fa-long-arrow-alt-right goto_arrow"></i></p>
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </li>
-            <li class="movielist_item">
-                <div class="row">
-                <div class="movie_info col-md-4">
-                    <img src="https://img.ruten.com.tw/s2/7/b3/9c/21712580001692_221.jpg" alt="">
-                    <ul class="movie_info_type">
-                        <li>2D</li>
-                        <li>IMAX</li>
-                    </ul>
-                </div>
-                <div class="movie_detail col-md-8">
-                    <div class="movie_date">
-                        <div class="movie_header">
-                            <div class="movie_name">
-                                <h1>DUNKIRK</h1>
-                                <h2>IMDB 8.2</h2>
-                            </div>
-                            <div class="movie_type">
-                                <small>120 min | ADVENTURE</small>
-                            </div>
-                            <div class="movie_day">
-                                <div class="date">
-                                    <ul>
-                                         <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                       <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                    </ul>
-                                </div>
-                              <ul class="time">
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">3D</i>
-                                          <li>
-                                              11:30 am
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                          <li>9:00 pm</li>
-                                      </ul>
-                                  </li>
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">4D</i>
-                                          <li>
-                                              <span>11:30 am</span>
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                      </ul>
-                                  </li>
-                              </ul>
-                                    <div class="gotobuy">
-                                        <p @click="clickabc()">點我去訂票</p>
-                                        <p @click="clickabc()"> <i class="fas fa-long-arrow-alt-right goto_arrow"></i></p>
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </li>
-            <li class="movielist_item">
-                <div class="row">
-                <div class="movie_info col-md-4">
-                    <img src="https://img.ruten.com.tw/s2/7/b3/9c/21712580001692_221.jpg" alt="">
-                    <ul class="movie_info_type">
-                        <li>2D</li>
-                        <li>IMAX</li>
-                    </ul>
-                </div>
-                <div class="movie_detail col-md-8">
-                    <div class="movie_date">
-                        <div class="movie_header">
-                            <div class="movie_name">
-                                <h1>DUNKIRK</h1>
-                                <h2>IMDB 8.2</h2>
-                            </div>
-                            <div class="movie_type">
-                                <small>120 min | ADVENTURE</small>
-                            </div>
-                            <div class="movie_day">
-                                <div class="date">
-                                    <ul>
-                                         <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                       <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                    </ul>
-                                </div>
-                              <ul class="time">
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">3D</i>
-                                          <li>
-                                              11:30 am
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                          <li>9:00 pm</li>
-                                      </ul>
-                                  </li>
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">4D</i>
-                                          <li>
-                                              <span>11:30 am</span>
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                      </ul>
-                                  </li>
-                              </ul>
-                                    <div class="gotobuy">
-                                        <p @click="clickabc()">點我去訂票</p>
-                                        <p @click="clickabc()"> <i class="fas fa-long-arrow-alt-right goto_arrow"></i></p>
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </li>
-            <li class="movielist_item">
-                <div class="row">
-                <div class="movie_info col-md-4">
-                    <img src="https://img.ruten.com.tw/s2/7/b3/9c/21712580001692_221.jpg" alt="">
-                    <ul class="movie_info_type">
-                        <li>2D</li>
-                        <li>IMAX</li>
-                    </ul>
-                </div>
-                <div class="movie_detail col-md-8">
-                    <div class="movie_date">
-                        <div class="movie_header">
-                            <div class="movie_name">
-                                <h1>DUNKIRK</h1>
-                                <h2>IMDB 8.2</h2>
-                            </div>
-                            <div class="movie_type">
-                                <small>120 min | ADVENTURE</small>
-                            </div>
-                            <div class="movie_day">
-                                <div class="date">
-                                    <ul>
-                                         <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                       <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                    </ul>
-                                </div>
-                              <ul class="time">
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">3D</i>
-                                          <li>
-                                              11:30 am
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                          <li>9:00 pm</li>
-                                      </ul>
-                                  </li>
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">4D</i>
-                                          <li>
-                                              <span>11:30 am</span>
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                      </ul>
-                                  </li>
-                              </ul>
-                                    <div class="gotobuy">
-                                        <p @click="clickabc()">點我去訂票</p>
-                                        <p @click="clickabc()"> <i class="fas fa-long-arrow-alt-right goto_arrow"></i></p>
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </li>
-            <li class="movielist_item">
-                <div class="row">
-                <div class="movie_info col-md-4">
-                    <img src="https://img.ruten.com.tw/s2/7/b3/9c/21712580001692_221.jpg" alt="">
-                    <ul class="movie_info_type">
-                        <li>2D</li>
-                        <li>IMAX</li>
-                    </ul>
-                </div>
-                <div class="movie_detail col-md-8">
-                    <div class="movie_date">
-                        <div class="movie_header">
-                            <div class="movie_name">
-                                <h1>DUNKIRK</h1>
-                                <h2>IMDB 8.2</h2>
-                            </div>
-                            <div class="movie_type">
-                                <small>120 min | ADVENTURE</small>
-                            </div>
-                            <div class="movie_day">
-                                <div class="date">
-                                    <ul>
-                                         <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                       <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                        <li>
-                                        <h2>Monday</h2>
-                                        <h1>17</h1>
-                                        <small>Feb</small>
-                                        </li>
-                                    </ul>
-                                </div>
-                              <ul class="time">
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">3D</i>
-                                          <li>
-                                              11:30 am
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                          <li>9:00 pm</li>
-                                      </ul>
-                                  </li>
-                                  <li>
-                                      <ul>
-                                          <i class="type_title">4D</i>
-                                          <li>
-                                              <span>11:30 am</span>
-                                          </li>
-                                          <li>
-                                              12:30 am
-                                          </li>
-                                          <li>6:45 pm</li>
-                                      </ul>
-                                  </li>
-                              </ul>
-                                    <div class="gotobuy">
-                                        <p @click="clickabc()">點我去訂票</p>
-                                        <p @click="clickabc()"> <i class="fas fa-long-arrow-alt-right goto_arrow"></i></p>
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </li>
-          
         </ul>
     </div>
 </template>
@@ -652,6 +239,7 @@
                                         ul {
                                             display: flex;
                                             justify-content: space-around;
+                                            align-items: center;
                                             .type-title {
                                                 display: none;
                                             }
@@ -693,6 +281,9 @@
                    }
                }
         }
+    }
+    .type_title {
+        display: none;
     }
     @media screen and(max-width: 768px) {
         .container {
@@ -754,14 +345,116 @@
         }
        
     }
-    
+    .d-none{
+        display: none!important;
+    }
 </style>
 
 <script>
 export default {
+    props:['movieData'],
+    data(){
+        return {
+            myMovieData:{
+                
+            },
+            data:[],
+            movieTime:[],
+            movietype:0,
+            tempData:[]
+        }
+        },
     methods:{
-        clickabc(){
-            this.$router.push('/ticket')
+        goToBook(index){
+            this.$router.push(`/booking/${index}`)
+        },
+        checkTime(myMovieData){
+            myMovieData.forEach((item)=>{
+                let flag_2d = false;
+                let flag_3d = false;
+                let flag_imax = false;
+                let flag_imax3d = false;
+                let flag_cinema4d = false;
+                if(item['2d_t']!==null){
+                    flag_2d = true
+                }
+                if(item['3d_t']!==null){
+                    flag_3d = true
+                }
+                if(item['imax_t']!==null){
+                    flag_imax = true
+                }
+                if(item['imax3d_t']!==null){
+                    flag_imax3d = true
+                }
+                if(item['cinema4d_t']!==null){
+                    flag_cinema4d = true
+                }
+                this.data.push({
+                    flag_2d,flag_3d,flag_imax,flag_imax3d,flag_cinema4d
+                })
+            })
+        },
+        changeType(index){
+            this.movietype = index
+            this.tempData = this.myMovieData
+            if(this.movietype ==0){
+                this.tempData = this.myMovieData;
+            }
+            if(this.movietype ==1){
+               this.tempData.forEach((item)=>{
+                    item['3d_t'] = null
+                    item['imax_t'] = null
+                    item['imax3d_t'] = null
+                    item['cinema4d_t'] = null
+               })
+            }
+             if(this.movietype ==2){
+               this.tempData = this.myMovieData
+               this.tempData.forEach((item)=>{
+                   console.log(item['3d_t'])
+                    item['2d_t'] = null
+                    item['imax_t'] = null
+                    item['imax3d_t'] = null
+                    item['cinema4d_t'] = null
+               })
+               console.log(this.tempData)
+            }
+            if(this.movietype == 3){
+               this.tempData = this.myMovieData
+               this.tempData.forEach((item)=>{
+                    item['2d_t'] = null
+                    item['3d'] = null
+                    item['imax3d_t'] = null
+                    item['cinema4d_t'] = null
+               })
+            }
+           if(this.movietype == 4){
+               this.tempData = this.myMovieData
+               this.tempData.forEach((item)=>{
+                    item['2d_t'] = null
+                    item['imax_t'] = null
+                    item['3d'] = null
+                    item['cinema4d_t'] = null
+               })
+            }
+            if(this.movietype == 5){
+               this.tempData = this.myMovieData
+               this.tempData.forEach((item)=>{
+                    item['2d_t'] = null
+                    item['imax_t'] = null
+                    item['imax3d_t'] = null
+                    item['3d_t'] = null
+               })
+            }
+        },
+        
+    },
+    watch:{
+        movieData(newValue){
+            this.myMovieData = newValue;
+            this.checkTime(this.myMovieData)
+            this.changeType(0)
         }
     }
 }
