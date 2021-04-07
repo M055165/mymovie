@@ -18,7 +18,14 @@
                 <div class="row">
                 <div class="movie_info col-md-4">
                     <img :src="item.img_s1" alt="">
-                    <ul class="movie_info_type">
+                    <ul class="movie_info_type" v-if="movietype ==0">
+                        <li :class="{'d-none':!data[index]['flag_2d']}">2D</li>
+                        <li :class="{'d-none':!data[index]['flag_3d']}">3D</li>
+                        <li :class="{'d-none':!data[index]['flag_imax']}">IMAX</li>
+                        <li :class="{'d-none':!data[index]['flag_imax3d']}">IMAX 3D</li>
+                        <li :class="{'d-none':!data[index]['flag_cinema4d']}">CINEMA 4D</li>
+                    </ul>
+                     <ul class="movie_info_type" v-else>
                         <li :class="{'d-none':movietype!==1}">2D</li>
                         <li :class="{'d-none':movietype!==2}">3D</li>
                         <li :class="{'d-none':movietype!==3}">IMAX</li>
@@ -39,7 +46,7 @@
                             <div class="movie_day">
                                 <div class="date">
                                     <ul>
-                                         <li>
+                                    <li>
                                         <h2>Monday</h2>
                                         <h1>17</h1>
                                         <small>February</small>
@@ -123,6 +130,12 @@
 </template>
 
 <style lang="scss" scoped> 
+    .d-none {
+        display: none!important;
+    }
+    .fontred{
+        color:red;
+    }
     .container {
         font-weight: bold;
         margin-top: 40px;
@@ -164,7 +177,7 @@
                .movielist_item {
                    display: flex;
                    justify-content: center;
-                   margin-bottom: 150px;
+                   margin-bottom: 220px;
                    .row {
                        width: 100%;
                        text-align: left;
@@ -181,7 +194,7 @@
                        display: flex;
                        flex-direction: column;
                        align-items: flex-start;
-                        margin-top: 30px;
+                       margin-top: 30px;
                        li {
                         height: 30px;
                         margin-top: 5px;
@@ -238,7 +251,7 @@
                                      margin-top:100px;
                                         ul {
                                             display: flex;
-                                            justify-content: space-around;
+                                            justify-content: space-between;
                                             align-items: center;
                                             .type-title {
                                                 display: none;
@@ -328,7 +341,11 @@
                                     margin-top:50px;
                                     ul {
                                         .type_title {
-                                            display: block;
+                                            width: 100px;
+                                            text-align: left;
+                                            font-size: 14px;
+                                            display: flex;
+                                            justify-content: flex-start;
                                         }
                                         li {
                                             font-size: 13px;
@@ -351,6 +368,7 @@
 </style>
 
 <script>
+import _ from 'lodash';
 export default {
     props:['movieData'],
     data(){
@@ -366,7 +384,13 @@ export default {
         },
     methods:{
         goToBook(index){
-            this.$router.push(`/booking/${index}`)
+            if(sessionStorage.getItem('login')=='true'){
+                this.$router.push(`/booking/${index+1}`)
+            }
+            else {
+                alert("請先登入")
+                this.$router.push(`/login`)
+            }
         },
         checkTime(myMovieData){
             myMovieData.forEach((item)=>{
@@ -394,15 +418,17 @@ export default {
                     flag_2d,flag_3d,flag_imax,flag_imax3d,flag_cinema4d
                 })
             })
+                console.log(this.data)
         },
         changeType(index){
             this.movietype = index
-            this.tempData = this.myMovieData
+            this.tempData = _.cloneDeep(this.myMovieData);
             if(this.movietype ==0){
-                this.tempData = this.myMovieData;
+            this.tempData = _.cloneDeep(this.myMovieData);
             }
             if(this.movietype ==1){
                this.tempData.forEach((item)=>{
+                    console.log(item['2d_t'])
                     item['3d_t'] = null
                     item['imax_t'] = null
                     item['imax3d_t'] = null
@@ -410,36 +436,31 @@ export default {
                })
             }
              if(this.movietype ==2){
-               this.tempData = this.myMovieData
                this.tempData.forEach((item)=>{
-                   console.log(item['3d_t'])
                     item['2d_t'] = null
                     item['imax_t'] = null
                     item['imax3d_t'] = null
                     item['cinema4d_t'] = null
                })
-               console.log(this.tempData)
             }
             if(this.movietype == 3){
-               this.tempData = this.myMovieData
                this.tempData.forEach((item)=>{
                     item['2d_t'] = null
-                    item['3d'] = null
+                    item['3d_t'] = null
                     item['imax3d_t'] = null
                     item['cinema4d_t'] = null
                })
             }
            if(this.movietype == 4){
-               this.tempData = this.myMovieData
                this.tempData.forEach((item)=>{
                     item['2d_t'] = null
                     item['imax_t'] = null
-                    item['3d'] = null
+                    item['3d_t'] = null
                     item['cinema4d_t'] = null
+                    console.log(item)
                })
             }
             if(this.movietype == 5){
-               this.tempData = this.myMovieData
                this.tempData.forEach((item)=>{
                     item['2d_t'] = null
                     item['imax_t'] = null
@@ -454,8 +475,8 @@ export default {
         movieData(newValue){
             this.myMovieData = newValue;
             this.checkTime(this.myMovieData)
-            this.changeType(0)
+            this.changeType(0);
         }
-    }
+    },
 }
 </script>

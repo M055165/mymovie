@@ -6,6 +6,7 @@ import Moviepage from '../views/MoviePage.vue'
 import Bookinglist from '../views/Bookinglist.vue'
 import Ticket from '../views/Ticketpage.vue'
 import Login from '../views/LoginPage.vue'
+import register from '../views/RegisterPage.vue'
 
 
 const routes = [
@@ -48,6 +49,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: register
   }
 ]
 

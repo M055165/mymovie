@@ -28,6 +28,7 @@ export default {
         this.myMovieData = res.data;
         console.log("成功獲取資料123")
         console.log(this.myMovieData)
+        
     })
   }
   },

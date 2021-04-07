@@ -3,14 +3,15 @@
     <nav >
       <div class="logo">
         <router-link to="/">
-        <h4>The nav</h4></router-link>
+        <img src="../../src/assets/logo123.png" alt="">
+        </router-link>
         
       </div>
       <ul class="nav-links" :class="{'navactive':burgerFlag}">
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/top100">Top100</router-link></li>
         <li><router-link to="/bookinglist">Booking</router-link></li>
-        <li><router-link to="/login">Login</router-link></li>
+        <li><a href="javascript:;" @click="goToLogin">Login</a></li>
       </ul>
       <div class="burger" :class="{'toggle':burgerFlag}" @click="burgerClick">
         <div class="line1"></div>
@@ -31,6 +32,14 @@ export default {
   methods: {
     burgerClick(){
       this.burgerFlag = !this.burgerFlag
+    },
+    goToLogin(){
+      let loginFlag = sessionStorage.getItem('login')
+      if(loginFlag){
+        alert(`${sessionStorage.getItem('account')} 您好,您已經登入過了喔！`)
+      }else {
+        this.$router.push('/login')
+      }
     }
   },
   created() {
@@ -44,6 +53,10 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+  img {
+    width: 100px;
+    
   }
   .app {
   // height: 60vh;

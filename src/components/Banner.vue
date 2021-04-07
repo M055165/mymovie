@@ -31,8 +31,6 @@ export default {
     watch:{
         movieData(newV){
             this.myMovieData = newV[0].img_big;
-            console.log("已改變")
-            console.log(this.myMovieData)
         }
     }
 }

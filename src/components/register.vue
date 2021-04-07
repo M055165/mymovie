@@ -13,16 +13,20 @@
           <label>
             <input type="password" name="password" placeholder="Password" v-model="data['password']" />
           </label>
-           <div class="button_box d-flex">
+           <label>
+            <input type="password" name="password" placeholder="Please input password again" v-model="data['passwordCheck']" />
+          </label>
+          <div class="button_box d-flex">
               <button class="red mr-3" type="reset" >
             <i class="icon ion-md-lock"></i> Reset
           </button>
-          <button class="red" type="button" @click="login">
-            <i class="icon ion-md-lock"></i> Login
+          <button class="red" type="button" @click="register">
+            <i class="icon ion-md-lock"></i> Register
           </button>
           </div>
         </form>
       </div>
+        <p>{{data.resultMessage}}</p>
     </div>
   </div>
 </template>
@@ -33,6 +37,9 @@ $color-red: #ae1100;
 $color-bg: #ebecf0;
 $color-shadow: #babecc;
 $color-white: #fff;
+p {
+    color:red;
+}
 .app {
   width: 100%;
   height: 100vh;
@@ -44,7 +51,7 @@ $color-white: #fff;
 
 .container {
   width: 40vw;
-  height: 60vh;
+  height: 67vh;
   background-color: white;
   position: absolute;
   top:50%;
@@ -64,7 +71,7 @@ $color-white: #fff;
     width: 48%;
     cursor: pointer;
   }
-  .login {
+  .register {
       border-bottom: 3px solid #dcdcdc;
   }
 }
@@ -141,7 +148,7 @@ button {
     }
     .container {
         width: 90%;
-        height: 55vh;
+        height: 67vh;
         left:5%;
         top:50%;
         transform: translateY(-50%);
@@ -163,22 +170,28 @@ export default {
     data:{
       account:'',
       password:'',
+      passwordCheck:'',
+      resultMessage:""
     }
     }
   },
   methods:{
-    login(){
-      console.log(this.data)
-      let api = `http://192.168.43.145:8800/user/login`
+    register(){
+      if(this.data.password == this.data.passwordCheck) {
+      let api = `http://192.168.43.145:8800/user/register`
       let vm = this;
        axios.post(api,this.data).then((res)=>{
-        if(res.data.result=="ok"){ //登入成功的話
+        if(res.data.result=="ok"){ //登入註冊成功
             console.log(res.data.data)
-            sessionStorage.setItem("login",true)
-            sessionStorage.setItem('account',res.data.data[0].account)
             vm.$router.push(`/`)
+        }else {
+            console.log(res.data.message)
+            this.data.resultMessage = res.data.message;
         }
-    })
+         })
+      }else {
+          alert("密碼輸入不一致！")
+      }
     },
     checktype(type) {
         if(type=='register'){

@@ -4,40 +4,25 @@
            <div class="col-md-6 seat_confirm">
                <img :src="myMovieData.img_s1" alt="">
                 <ul class="seat_list">
-                    <li>
-                        <p>6<small class="ml-3">row</small></p>
-                        <p>7<small>th</small></p>
+                    <li v-for = "(item,index) in seatInfo" :key="index">
+                        <p>{{item.split(',')[0]}}<small class="ml-3">row</small></p>
+                        <p>{{item.split(',')[1]}}<small>th</small></p>
                         <b>seat</b>
-                        <i>$15</i>
-                        <a @click="clickabc">X</a>
-                    </li>
-                    <li>
-                        <p>6<small class="ml-3">row</small></p>
-                        <p>7<small>th</small></p>
-                        <b>seat</b>
-                        <i>$15</i>
-                        <a @click="clickabc">X</a>
-                    </li>
-                    <li>
-                        <p>6<small class="ml-3">row</small></p>
-                        <p>7<small>th</small></p>
-                        <b>seat</b>
-                        <i>$15</i>
-                        <a @click="clickabc">X</a>
+                        <i>${{moviePrice}}</i>
+                        <a @click="removieSeat(index)">X</a>
                     </li>
                 </ul>
                 <p class="total">
                     <small>Total</small> 
-                    $100
+                    {{movieTotalPrice}}
                     </p>
               <div class="confirm">
           <button class="cancel">cancel</button>
-          <button class="next">next</button>
+          <button class="next" @click="goBooking">next</button>
           </div> 
            </div>
            <div class="col-md-6 seat_choose">
              <h1>{{myMovieData.movie_ename}}</h1>
-             {{timeChoose}}
            <div class="movie-container">
             <label>Pick a Session:</label>
             <select id="movie" v-model="timeChoose">
@@ -59,10 +44,10 @@
         <small>Occupied</small>
       </li>
               </ul>
-      <div class="seat_choose">
+      <div class="seat_choose" @click="seatchoose" v-show="timeChoose">
       <div class="screen"></div>
 
-      <div class="row">
+      <div class="myrow">
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
@@ -73,58 +58,58 @@
         <div class="seat"></div>
       </div>
 
-      <div class="row">
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
+      <div class="myrow">
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat "></div>
+        <div class="seat "></div>
+      </div>
+
+      <div class="myrow">
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat "></div>
+        <div class="seat "></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat "></div>
         <div class="seat"></div>
       </div>
 
-      <div class="row">
+      <div class="myrow">
+        <div class="seat "></div>
+        <div class="seat "></div>
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
+        <div class="seat "></div>
       </div>
 
-      <div class="row">
+      <div class="myrow">
+         <div class="seat"></div>
+        <div class="seat"></div>
+        <div class="seat "></div>
+        <div class="seat "></div>
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
+        <div class="seat ="></div>
       </div>
 
-      <div class="row">
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-        <div class="seat"></div>
-      </div>
-
-      <div class="row">
+      <div class="myrow">
+         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
         <div class="seat"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
-        <div class="seat occupied"></div>
+        <div class="seat"></div>
+        <div class="seat"></div>
         <div class="seat"></div>
       </div>
     </div>
@@ -140,45 +125,116 @@ export default {
    props:["movieData"],
     data(){
         return{
-            myMovieData:'',
-            tempData:[],
-            timeData:[],
-            typeList:[],
-            timeChoose:'',
+            myMovieData:'',//原始dat
+            optionData:[],//獲取選取框時間(raw)
+            timeData:[],//獲取選取框時間(加上電影類型）
+            typeList:[],//電影累類型
+            timeChoose:'',//選取匡選擇的value
+            seatsIndex:[],//選取位置的index
+            seatOccupied:[0,2,5,7,17,18,30],//預設哪些位置不能選的index
+            movieCount:0,//選取位置數量
+            moviePrice:15,//一張電影票價格
+            seatInfo:[]//選取位置資訊 row,column 以逗號分割
         }
     },
     methods:{
-        clickabc(){
-            alert(123)
-        },
         makeTimeList(){
                 if(this.myMovieData['2d_t']!==null){
-                    this.tempData.push(this.myMovieData['2d_t'].split(','))
+                    this.optionData.push(this.myMovieData['2d_t'].split(','))
                     this.typeList.push("2D")
                 }
                 if(this.myMovieData['3d_t']!==null){
-                    this.tempData.push(this.myMovieData['3d_t'].split(','))
+                    this.optionData.push(this.myMovieData['3d_t'].split(','))
                     this.typeList.push("3D")
                 }
                 if(this.myMovieData['imax_t']!==null){
-                    this.tempData.push(this.myMovieData['imax_t'].split(','))
+                    this.optionData.push(this.myMovieData['imax_t'].split(','))
                     this.typeList.push("IMAX")
                 }
                 if(this.myMovieData['imax3d_t']!==null){
-                    this.tempData.push(this.myMovieData['imax3d_t'].split(','))
+                    this.optionData.push(this.myMovieData['imax3d_t'].split(','))
                     this.typeList.push("IMAX 3D")
                 }
                 if(this.myMovieData['cinema4d_t']!==null){
-                    this.tempData.push(this.myMovieData['cinema4d_t'].split(','))
+                    this.optionData.push(this.myMovieData['cinema4d_t'].split(','))
                     this.typeList.push("CINEMA 4D")
                 }
-                this.tempData.forEach((item,index)=>{
-                  console.log(index)
+                this.optionData.forEach((item,index)=>{
                   item.forEach((value=>{
                     return this.timeData.push(this.typeList[index]+'  ' +value)
                   }))
                 })
-        }
+        },
+        makeOccupied(){
+            let seatsAll = document.querySelectorAll('.myrow .seat')//選取所有位置
+            seatsAll.forEach((item,index) => {
+            if(this.seatOccupied.indexOf(index)!==-1){
+            seatsAll[index].classList.toggle('occupied');
+            }
+        });
+        },
+        seatchoose(e){
+          if (e.target.classList.contains('seat') &&!e.target.classList.contains('occupied')) { //如果選取的dom元素有包含seat且不包含已選取
+             e.target.classList.toggle('selected');//加上選取元素
+                const seatsAll = document.querySelectorAll('.myrow .seat');//選所有位置
+                const selectedSeats = document.querySelectorAll('.myrow .selected');
+                this.seatsIndex = [...selectedSeats].map(seat => [...seatsAll].indexOf(seat));
+                console.log(this.seatsIndex);
+                this.movieCount = selectedSeats.length; //獲取選取數量
+                this.makeSeatInfo(this.seatsIndex)
+                console.log()
+            }
+    },
+           makeSeatInfo(data){
+             this.seatInfo = []
+              data.forEach((item)=>{
+                if(item >=0 && item <8){
+                  this.seatInfo.push(`1,${item+1}`)
+                }
+                else if (item >=8 && item <16){
+                  this.seatInfo.push(`2,${item-7}`)
+                }
+                 else if (item >=16 && item <24){
+                  this.seatInfo.push(`3,${item-15}`)
+                }
+                  else if (item >=24 && item <32){
+                  this.seatInfo.push(`4,${item-23}`)
+                }
+                 else if (item >=32 && item <40){
+                  this.seatInfo.push(`5,${item-31}`)
+                }
+                 else if (item >=40 && item <48){
+                  this.seatInfo.push(`6,${item-39}`)
+                }
+              })
+            },
+            removieSeat(index){
+              this.movieCount -=1;
+              this.seatInfo.splice(index,1)
+              this.seatsIndex.splice(index,1)
+              let seatSelected =  document.querySelectorAll('.myrow .selected');
+              seatSelected[index].classList.toggle('selected');
+            },
+            goBooking(){
+              let data ={
+                seatInfo:this.seatInfo,
+                movieCount:this.movieCount,
+                moviePrice:this.moviePrice,
+                movieTotalPrice:this.movieTotalPrice,
+                timeChoose :this.timeChoose,
+                movieEname :this.myMovieData.movie_ename
+              }
+              console.log(data)
+            }
+    },
+    computed:{
+      movieTotalPrice(){
+        return this.movieCount * this.moviePrice
+      }
+    },
+    mounted(){
+      console.log(sessionStorage.getItem('account'))
+      this.makeOccupied();
     },
     watch:{
         movieData(newV){
@@ -187,6 +243,7 @@ export default {
         }
     }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -306,7 +363,7 @@ export default {
 }
 
 .seat.occupied {
-  background-color: #fff;
+  background-color: #DCDCDC;
 }
 
 .seat:nth-of-type(2) {
@@ -348,7 +405,7 @@ export default {
   margin-left: 2px;
 }
 
-.row {
+.myrow {
   display: flex;
 }
 

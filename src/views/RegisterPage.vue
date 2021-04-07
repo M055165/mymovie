@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <login></login>
+        <register></register>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -11,8 +11,8 @@
 </style>
 
 <script>
-import login from '../components/login'
+import register from '../components/register'
 export default {
-    components:{login},
+    components:{register},
 }
 </script>
