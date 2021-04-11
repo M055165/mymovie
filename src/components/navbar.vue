@@ -5,13 +5,17 @@
         <router-link to="/">
         <img src="../../src/assets/logo123.png" alt="">
         </router-link>
-        
+        <modal v-if="modalFlag" @modalClose="modalClose()">
+            <template v-slot:text>{{account}}您好！您已經登入過囉～</template>
+            關閉
+        </modal>
       </div>
       <ul class="nav-links" :class="{'navactive':burgerFlag}">
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/top100">Top100</router-link></li>
         <li><router-link to="/bookinglist">Booking</router-link></li>
-        <li><a href="javascript:;" @click="goToLogin">Login</a></li>
+        <li v-if="!loginFlag"><a href="javascript:;" @click="goToLogin">Login</a></li>
+        <li v-if="loginFlag"><router-link to="/profile">{{account}}</router-link></li>
       </ul>
       <div class="burger" :class="{'toggle':burgerFlag}" @click="burgerClick">
         <div class="line1"></div>
@@ -23,11 +27,18 @@
 </template>
 
 <script>
+import modal from '../components/Modal'
 export default {
   data() {
-    return {  
+    return { 
+      modalFlag:false,
       burgerFlag : false,
+      account:'',
+      loginFlag:false
     };
+  },
+  components:{
+    modal
   },
   methods: {
     burgerClick(){
@@ -36,14 +47,20 @@ export default {
     goToLogin(){
       let loginFlag = sessionStorage.getItem('login')
       if(loginFlag){
-        alert(`${sessionStorage.getItem('account')} 您好,您已經登入過了喔！`)
+        this.modalFlag = true;
       }else {
         this.$router.push('/login')
       }
+    },
+    modalClose(){
+      this.modalFlag=false;
     }
   },
   created() {
-    
+    this.account = sessionStorage.getItem('account')
+    if(this.account){
+      this.loginFlag = true
+    }
   },
 };
 </script>

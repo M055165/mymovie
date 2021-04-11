@@ -1,5 +1,15 @@
 <template>
     <div class="container">
+      <modal v-if="modalFlag" @modalClose="modalClose()">
+        <template v-slot:text>請先確認訂購的位置無誤
+        <button class="btn btn-dark" @click="modalCancel()">取消</button>
+        </template>
+            確認
+      </modal>
+      <modal v-if="modalConfirmFlag" @modalClose="modalConfirmClose()">
+        <template v-slot:text>{{account}}訂購成功！</template>
+            確認
+      </modal>
        <div class="row">
            <div class="col-md-6 seat_confirm">
                <img :src="myMovieData.img_s1" alt="">
@@ -121,6 +131,8 @@
 </template>
 
 <script>
+import modal from '../components/Modal'
+import axios from 'axios';
 export default {
    props:["movieData"],
     data(){
@@ -134,8 +146,13 @@ export default {
             seatOccupied:[0,2,5,7,17,18,30],//預設哪些位置不能選的index
             movieCount:0,//選取位置數量
             moviePrice:15,//一張電影票價格
-            seatInfo:[]//選取位置資訊 row,column 以逗號分割
+            seatInfo:[],//選取位置資訊 row,column 以逗號分割,
+            modalFlag:false,
+            modalConfirmFlag:false
         }
+    },
+    components:{
+      modal
     },
     methods:{
         makeTimeList(){
@@ -216,16 +233,33 @@ export default {
               seatSelected[index].classList.toggle('selected');
             },
             goBooking(){
-              let data ={
+              this.modalFlag=true;
+            },
+            modalClose(){
+            this.modalFlag=false;
+            let data ={
                 seatInfo:this.seatInfo,
                 movieCount:this.movieCount,
                 moviePrice:this.moviePrice,
                 movieTotalPrice:this.movieTotalPrice,
                 timeChoose :this.timeChoose,
-                movieEname :this.myMovieData.movie_ename
+                movieEname :this.myMovieData.movie_ename,
+                movieTname:this.myMovieData.movie_tname,
+                user:sessionStorage.getItem('account')
               }
-              console.log(data)
+            let api = `http://192.168.43.145:8800/order/add`
+            axios.post(api,data).then((res)=>{
+            if(res.data.status == 'ok') {
+              this.modalConfirmFlag = true;
             }
+                })
+    },
+    modalConfirmClose(){
+      this.modalConfirmFlag = false
+    },
+    modalCancel(){
+      this.modalFlag = false;
+    }
     },
     computed:{
       movieTotalPrice(){
@@ -440,6 +474,7 @@ p.text span {
     margin:50px 5px 0 ;
     border:3px solid rgba($color: red, $alpha: 0.4);
     border-radius: 5px;
+    cursor: pointer;
     &.cancel {
       background:black;
       color:red;

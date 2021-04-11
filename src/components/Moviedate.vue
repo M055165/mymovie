@@ -13,6 +13,10 @@
                 <li :class="{red:movietype==5}" @click="changeType(5)">CINEMA 4D</li>
             </ul>
         </div>
+        <modal v-if="modalFlag" @modalClose="modalClose()">
+            <template v-slot:text>{{account}}您好！如需購票，請先登入！</template>
+            登入
+        </modal>
         <ul class="movielist">
             <li class="movielist_item" v-for="(item,index) in tempData" :key="index">
                 <div class="row">
@@ -369,9 +373,13 @@
 
 <script>
 import _ from 'lodash';
+import modal from '../components/Modal'
 export default {
     props:['movieData'],
-    data(){
+    components:{
+        modal
+    },
+   data(){
         return {
             myMovieData:{
                 
@@ -379,7 +387,8 @@ export default {
             data:[],
             movieTime:[],
             movietype:0,
-            tempData:[]
+            tempData:[],
+            modalFlag:false
         }
         },
     methods:{
@@ -388,8 +397,7 @@ export default {
                 this.$router.push(`/booking/${index+1}`)
             }
             else {
-                alert("請先登入")
-                this.$router.push(`/login`)
+                this.modalFlag = true;
             }
         },
         checkTime(myMovieData){
@@ -469,7 +477,10 @@ export default {
                })
             }
         },
-        
+        modalClose(){
+            this.modalFlag = false;
+            this.$router.push('/login')
+        }
     },
     watch:{
         movieData(newValue){

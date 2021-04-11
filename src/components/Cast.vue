@@ -43,7 +43,7 @@
 </template>
 
 
-<script scoped>
+<script >
 export default {
    props:['movieData'],
    data(){

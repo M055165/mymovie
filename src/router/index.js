@@ -7,6 +7,7 @@ import Bookinglist from '../views/Bookinglist.vue'
 import Ticket from '../views/Ticketpage.vue'
 import Login from '../views/LoginPage.vue'
 import register from '../views/RegisterPage.vue'
+import Profile from '../views/ProfilePage.vue'
 
 
 const routes = [
@@ -54,7 +55,12 @@ const routes = [
     path: '/register',
     name: 'register',
     component: register
-  }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile
+  },
 ]
 
 const router = createRouter({
