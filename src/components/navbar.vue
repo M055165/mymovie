@@ -66,6 +66,9 @@ export default {
 </script>
 <style lang="scss" scoped>
   $white:rgb(226,226,226);
+  li,a,router-link {
+    cursor: pointer;
+  }
   *{
     margin: 0;
     padding: 0;
@@ -120,6 +123,7 @@ export default {
     margin: 5px;
     background-color: $white;
   }
+  
   @media screen and (max-width: 1024px) {
     .nav-links {
       width: 60%;

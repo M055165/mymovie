@@ -148,7 +148,8 @@ export default {
             moviePrice:15,//一張電影票價格
             seatInfo:[],//選取位置資訊 row,column 以逗號分割,
             modalFlag:false,
-            modalConfirmFlag:false
+            modalConfirmFlag:false,
+            timestamp:0
         }
     },
     components:{
@@ -245,7 +246,8 @@ export default {
                 timeChoose :this.timeChoose,
                 movieEname :this.myMovieData.movie_ename,
                 movieTname:this.myMovieData.movie_tname,
-                user:sessionStorage.getItem('account')
+                user:sessionStorage.getItem('account'),
+                timestamp:Date.now(),
               }
             let api = `http://192.168.43.145:8800/order/add`
             axios.post(api,data).then((res)=>{

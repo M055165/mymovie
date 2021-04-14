@@ -1,6 +1,8 @@
 <template>
     <div class="app">
+        <navbar></navbar>
         <profile></profile>
+        <myfooter></myfooter>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -11,8 +13,10 @@
 </style>
 
 <script>
+import navbar from '../components/navbar'
+import myfooter from '../components/Footer'
 import profile from '../components/profile'
 export default {
-    components:{profile},
+    components:{profile,navbar,myfooter},
 }
 </script>
