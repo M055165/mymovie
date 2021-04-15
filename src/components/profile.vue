@@ -2,6 +2,10 @@
 <div id="app">
     <div class="container">
         <div class="header_wrapper">
+            <modal v-if="modalFlag" @modalClose="modalClose()">
+                <template v-slot:text>確定要刪除嗎？</template>
+                確定
+            </modal>
             <div class="header_img">
             </div>
             <div class="header_account">
@@ -35,7 +39,6 @@
                         <td>{{item.movietotalprice}}</td>
                         <td>
                             <button class="btn btn-danger mr-2" @click="spliceOrder(item.id)">刪除</button>
-                            <button class="btn btn-primary">修改</button>
                         </td>
                     </tr>
 
@@ -126,21 +129,34 @@
 
 <script>
 import pagination from '../components/pagination'
+import modal from '../components/Modal'
 import axios from 'axios';
 export default {
     components: {
-        pagination
+        pagination,
+        modal
     },
     data() {
         return {
             account: '',
             orderData: '',
-            dateData: ''
+            dateData: '',
+            modalFlag:false,
         }
     },
-    methods:{
-        spliceOrder(id){
-            alert(id)
+    methods: {
+        spliceOrder(id) {
+            this.modalFlag = true;
+            let api = `http://192.168.43.145:8800/order/delete`
+            axios.post(api, {
+                id: id
+            }).then((res) => {
+                console.log(res.data)
+            })
+        },
+        modalClose(){
+            this.modalFlag = false;
+            window.location.reload()
         }
     },
     created() {
