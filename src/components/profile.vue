@@ -18,6 +18,7 @@
                     <tr>
                         <th>訂單時間</th>
                         <th>電影名稱</th>
+                        <th>電影時間</th>
                         <th>電影類型</th>
                         <th>選購位置</th>
                         <th>單張票價</th>
@@ -30,9 +31,10 @@
                         <td>{{new Date(parseInt(item.timestamp)).getFullYear()+"/" +(new Date(parseInt(item.timestamp)).getMonth() + 1) +
             "/" + new Date(parseInt(item.timestamp)).getDate()+
             " " + new Date(parseInt(item.timestamp)).getHours() +
-            ":" + new Date(parseInt(item.timestamp)).getMinutes() +
+            ":" + new Date(parseInt(item.timestamp)).getMinutes()+
             ":" + new Date(parseInt(item.timestamp)).getSeconds()}}</td>
                         <td>{{item.movietname}}</td>
+                        <td>{{item.datechoose+'   '+item.timechoose.split(' ')[2]}}</td>
                         <td>{{item.timechoose.split(' ')[0]}}</td>
                         <td>第二行第三排、第四行第五排</td>
                         <td>{{item.movieprice}}</td>

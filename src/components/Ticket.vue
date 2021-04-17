@@ -34,7 +34,17 @@
            <div class="col-md-6 seat_choose">
              <h1>{{myMovieData.movie_ename}}</h1>
            <div class="movie-container">
-            <label>Pick a Session:</label>
+             <label>Pick a date:</label>
+            <select id="date" v-model='dateChoose'>
+            <option value="5/17">5/17</option>
+            <option value="5/18">5/18</option>
+            <option value="5/19">5/19</option>
+            <option value="5/20">5/20</option>
+            <option value="5/21">5/21</option>
+            <option value="5/22">5/22</option>
+            </select>
+            <br>
+            <label class="mt-3">Pick a Session:</label>
             <select id="movie" v-model="timeChoose">
             <option :value="item" v-for="(item,index) in timeData" :key="index" >{{item}}</option>
             </select>
@@ -149,7 +159,8 @@ export default {
             seatInfo:[],//選取位置資訊 row,column 以逗號分割,
             modalFlag:false,
             modalConfirmFlag:false,
-            timestamp:0
+            timestamp:0,
+            dateChoose:''
         }
     },
     components:{
@@ -248,7 +259,9 @@ export default {
                 movieTname:this.myMovieData.movie_tname,
                 user:sessionStorage.getItem('account'),
                 timestamp:Date.now(),
+                dateChoose : this.dateChoose,
               }
+            console.log(data)
             let api = `http://192.168.43.145:8800/order/add`
             axios.post(api,data).then((res)=>{
             if(res.data.status == 'ok') {
