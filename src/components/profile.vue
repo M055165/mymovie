@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item,index) in orderData" :key="index">
+                    <tr v-for="(item,index) in pageData" :key="index">
                         <td>{{new Date(parseInt(item.timestamp)).getFullYear()+"/" +(new Date(parseInt(item.timestamp)).getMonth() + 1) +
             "/" + new Date(parseInt(item.timestamp)).getDate()+
             " " + new Date(parseInt(item.timestamp)).getHours() +
@@ -48,7 +48,7 @@
             </table>
 
         </div>
-        <pagination class='pagination'></pagination>
+        <pagination class='pagination' @pagesChange='pagesChange' :orderDataLength=orderData.length></pagination>
     </div>
 
 </div>
@@ -144,6 +144,8 @@ export default {
             orderData: '',
             dateData: '',
             modalFlag:false,
+            currentIndex:1,
+            pageData:''
         }
     },
     methods: {
@@ -159,6 +161,21 @@ export default {
         modalClose(){
             this.modalFlag = false;
             window.location.reload()
+        },
+        pagesChange(index){
+            if(index ==='1'){
+                this.currentIndex+= 1;
+            }else if(index === '-1'){
+                this.currentIndex -= 1;
+            }else {
+                this.currentIndex = index
+            }
+            let api = `http://192.168.43.145:8800/order/page/${this.account}/${this.currentIndex}`
+            axios.get(api).then((res)=>{
+                this.pageData = res.data;
+                console.log('pageData')
+                console.log(this.pageData)
+            })
         }
     },
     created() {
@@ -178,6 +195,7 @@ export default {
         axios.get(api).then((res) => {
             this.orderData = res.data;
         })
+        this.pagesChange(1);
     }
 }
 </script>
