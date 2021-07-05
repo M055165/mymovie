@@ -2,7 +2,7 @@
   "homepage": "https://m055165.github.io/mymovie/",
   "name": "mymovie",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
