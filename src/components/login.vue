@@ -6,7 +6,7 @@
         <div class="register" @click="checktype('register')">註冊</div>
       </div>
       <div class="login_form">
-        <form action="http://localhost:8800/user/login" method="post"  >
+        <form action="/api//user/login" method="post"  >
           <label>
             <input type="text" name="account" placeholder="User Account"  v-model="data['account']" />
           </label>
@@ -169,7 +169,7 @@ export default {
   methods:{
     login(){
       console.log(this.data)
-      let api = `http://192.168.43.145:8800/user/login`
+      let api = `/api/user/login`
       let vm = this;
        axios.post(api,this.data).then((res)=>{
         if(res.data.result=="ok"){ //登入成功的話
