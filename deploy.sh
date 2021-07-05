@@ -10,5 +10,5 @@ git init
 git add -A
 git commit -m 'deploy'
 # 部署到 https://github.com/chou0728/eric-project.git 分支為 gh-pages
-git push -f https://github.com/M055165/vuemovie.git master:gh-pages
+git push -f https://github.com/M055165/mymovie.git master:gh-pages
 cd -
