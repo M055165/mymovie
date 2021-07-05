@@ -23,13 +23,13 @@ export default {
   },
   methods:{
 getCommingData(){
-        let api = 'http://192.168.43.145:8800/comming/all'
+        let api = '/api/comming/all'
         axios.get(api).then((res)=>{
         this.commingData = res.data;
     })
   },
   getRunningData(){
-        let api = 'http://192.168.43.145:8800/running/all'
+        let api = '/api/running/all'
         axios.get(api).then((res)=>{
         this.runningData = res.data;
     })

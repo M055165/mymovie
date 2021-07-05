@@ -129,7 +129,7 @@ export default {
        align-items: center;
        margin-bottom: 20px;
        p {
-           font-size: 20px;
+           font-size: 17px;
            display: flex;
            justify-content: center;
            width: 200px;

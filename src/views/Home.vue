@@ -25,16 +25,15 @@ export default {
   components: { navbar, carousel,commingsoon,myfooter},
   methods:{
 getCommingData(){
-        let api = 'http://192.168.43.145:8800/comming/all'
-        axios.get(api).then((res)=>{
-        this.commingData = res.data;
-    })
-  },
+     axios.get('/api/comming/all').then(res => {
+       this.commingData =res.data
+})
+  
+     },
   getRunningData(){
-        let api = 'http://192.168.43.145:8800/running/all'
-        axios.get(api).then((res)=>{
-        this.runningData = res.data;
-    })
+     axios.get('/api/running/all').then(res => {
+       this.runningData =res.data
+})
   },
   },
 mounted(){

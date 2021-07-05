@@ -10,7 +10,7 @@
 import navbar from '../components/navbar'
 import myfooter from '../components/Footer'
 import moviedate from '../components/Moviedate'
-import axios from 'axios';
+import axios from 'axios'
 export default {
     components:{
         navbar,
@@ -24,11 +24,10 @@ data(){
   },
   methods:{
   getRunningData(){
-        let api = 'http://192.168.43.145:8800/running/all'
-        axios.get(api).then((res)=>{
-        this.runningData = res.data;
-    })
-  },
+       axios.get('/api/running/all').then(res => {
+       this.runningData =res.data
+})
+  }
   },
 mounted(){
     this.getRunningData()
