@@ -25,7 +25,10 @@ export default {
   components: { navbar, carousel,commingsoon,myfooter},
   methods:{
 getCommingData(){
-     axios.get('/api/comming/all').then(res => {
+  const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
+  const url = 'https://boiling-everglades-57930.herokuapp.com/comming/all'; // origin api url
+
+     axios.get(`${cors}${url}`).then(res => {
        this.commingData =res.data
 })
   
