@@ -23,7 +23,6 @@ export default {
   },
   methods:{
 getCommingData(){
-        let api = '/api/comming/all'
           const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
           const url = 'https://boiling-everglades-57930.herokuapp.com/comming/all'; // origin api url
         axios.get(`${cors}${url}`).then((res)=>{
@@ -31,7 +30,6 @@ getCommingData(){
     })
   },
   getRunningData(){
-         let api = '/api/running/all'
          const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
           const url = 'https://boiling-everglades-57930.herokuapp.com/running/all'; // origin api url
         axios.get(`${cors}${url}`).then((res)=>{

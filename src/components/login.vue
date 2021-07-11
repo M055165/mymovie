@@ -169,9 +169,10 @@ export default {
   methods:{
     login(){
       console.log(this.data)
-      let api = `/api/user/login`
+       const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
+        const url = `https://boiling-everglades-57930.herokuapp.com/user/login`; // origin api url
       let vm = this;
-       axios.post(api,this.data).then((res)=>{
+       axios.post(`${cors}${url}`,this.data).then((res)=>{
         if(res.data.result=="ok"){ //登入成功的話
             console.log(res.data.data)
             sessionStorage.setItem("login",true)

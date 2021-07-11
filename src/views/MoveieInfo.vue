@@ -30,8 +30,9 @@ methods:{
   getMovieData(){
     let movieType = this.$route.name;
     let movieId = this.$route.params.movieId ;
-    let api = `/api/${movieType}/${movieId}`
-    axios.get(api).then((res)=>{
+    const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
+    const url = `https://boiling-everglades-57930.herokuapp.com/${movieType}/${movieId}`; // origin api url
+    axios.get(`${cors}${url}`).then((res)=>{
         this.movieData = res.data;
         console.log("成功獲取資料")
         console.log(this.movieData)

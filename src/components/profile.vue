@@ -151,8 +151,9 @@ export default {
     methods: {
         spliceOrder(id) {
             this.modalFlag = true;
-            let api = `http://192.168.43.145:8800/order/delete`
-            axios.post(api, {
+            const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
+            const url = `https://boiling-everglades-57930.herokuapp.com/order/delete`; // origin api url
+            axios.post(`${cors}${url}`, {
                 id: id
             }).then((res) => {
                 console.log(res.data)
@@ -170,8 +171,9 @@ export default {
             }else {
                 this.currentIndex = index
             }
-            let api = `http://192.168.43.145:8800/order/page/${this.account}/${this.currentIndex}`
-            axios.get(api).then((res)=>{
+            const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
+            const url = `https://boiling-everglades-57930.herokuapp.com/page/${this.account}/${this.currentIndex}`; // origin api url
+            axios.get(`${cors}${url}`).then((res)=>{
                 this.pageData = res.data;
                 console.log('pageData')
                 console.log(this.pageData)
@@ -190,9 +192,9 @@ export default {
         this.account = sessionStorage.getItem('account')
     },
     mounted() {
-        let api = 'http://192.168.43.145:8800/order/' + this.account
-        console.log(api)
-        axios.get(api).then((res) => {
+        const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
+        const url = `https://boiling-everglades-57930.herokuapp.com/order/${this.account}`;
+        axios.get(`${cors}${url}`).then((res) => {
             this.orderData = res.data;
         })
         this.pagesChange(1);
