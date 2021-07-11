@@ -5,7 +5,7 @@ module.exports = {
       devServer: {
         proxy: {
           '/api': {
-            target: 'http://192.168.0.12:8800/', //对应自己的接口
+            target: 'https://boiling-everglades-57930.herokuapp.com/', //对应自己的接口
             changeOrigin: true,
             ws: true,
             pathRewrite: {
