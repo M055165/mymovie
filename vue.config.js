@@ -4,7 +4,7 @@ module.exports = {
       : '/',
       devServer: {
         open: true,
-        host: 'https://m055165.github.io/mymovie/',
+        host: 'https://m055165.github.io/mymovie333/',
         proxy: {
           '/api': {
             target: 'https://boiling-everglades-57930.herokuapp.com/', //对应自己的接口
