@@ -151,9 +151,8 @@ export default {
     methods: {
         spliceOrder(id) {
             this.modalFlag = true;
-            const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
-            const url = `https://boiling-everglades-57930.herokuapp.com/order/delete`; // origin api url
-            axios.post(`${cors}${url}`, {
+            const url = `https://vert-choucroute-22094.herokuapp.com/order/delete`; // origin api url
+            axios.post(`${url}`, {
                 id: id
             }).then((res) => {
                 console.log(res.data)
@@ -171,9 +170,8 @@ export default {
             }else {
                 this.currentIndex = index
             }
-            const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
-            const url = `https://boiling-everglades-57930.herokuapp.com/page/${this.account}/${this.currentIndex}`; // origin api url
-            axios.get(`${cors}${url}`).then((res)=>{
+            const url = `https://vert-choucroute-22094.herokuapp.com/page/${this.account}/${this.currentIndex}`; // origin api url
+            axios.get(`${url}`).then((res)=>{
                 this.pageData = res.data;
                 console.log('pageData')
                 console.log(this.pageData)
@@ -192,9 +190,8 @@ export default {
         this.account = sessionStorage.getItem('account')
     },
     mounted() {
-        const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
-        const url = `https://boiling-everglades-57930.herokuapp.com/order/${this.account}`;
-        axios.get(`${cors}${url}`).then((res) => {
+        const url = `https://vert-choucroute-22094.herokuapp.com/order/${this.account}`;
+        axios.get(`${url}`).then((res) => {
             this.orderData = res.data;
         })
         this.pagesChange(1);

@@ -6,7 +6,7 @@
         <div class="register" @click="checktype('register')">註冊</div>
       </div>
       <div class="login_form">
-        <form action="/api//user/login" method="post"  >
+        <form action="https://vert-choucroute-22094.herokuapp.com/user/login" method="post"  >
           <label>
             <input type="text" name="account" placeholder="User Account"  v-model="data['account']" />
           </label>
@@ -169,10 +169,9 @@ export default {
   methods:{
     login(){
       console.log(this.data)
-       const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
-        const url = `https://boiling-everglades-57930.herokuapp.com/user/login`; // origin api url
+      const url = `https://vert-choucroute-22094.herokuapp.com/user/login`; // origin api url
       let vm = this;
-       axios.post(`${cors}${url}`,this.data).then((res)=>{
+       axios.post(`${url}`,this.data).then((res)=>{
         if(res.data.result=="ok"){ //登入成功的話
             console.log(res.data.data)
             sessionStorage.setItem("login",true)

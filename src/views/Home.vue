@@ -24,26 +24,22 @@ export default {
   },
   components: { navbar, carousel,commingsoon,myfooter},
   methods:{
-getCommingData(){
-  const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
-  const url = 'https://boiling-everglades-57930.herokuapp.com/comming/all'; // origin api url
-
-     axios.get(`${cors}${url}`).then(res => {
+ getCommingData(){
+  const url = 'https://vert-choucroute-22094.herokuapp.com/comming/all'; // origin api url
+     axios.get(`${url}`).then(res => {
        this.commingData =res.data
 })
   
      },
   getRunningData(){
-     const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
-      const url = 'https://boiling-everglades-57930.herokuapp.com/running/all'; // origin api url
-
-     axios.get(`${cors}${url}`).then(res => {
+      const url = 'https://vert-choucroute-22094.herokuapp.com/running/all'; // origin api url
+      axios.get(`${url}`).then(res => {
        this.runningData =res.data
 })
   },
   },
 mounted(){
-  this.getCommingData()
+    this.getCommingData()
     this.getRunningData()
 
 }

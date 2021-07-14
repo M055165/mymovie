@@ -6,7 +6,7 @@
         <div class="register" @click="checktype('register')">註冊</div>
       </div>
       <div class="login_form">
-        <form action="http://localhost:8800/user/login" method="post"  >
+        <form action="https://vert-choucroute-22094.herokuapp.com/user/login" method="post"  >
           <label>
             <input type="text" name="account" placeholder="User Account"  v-model="data['account']" />
           </label>
@@ -178,7 +178,7 @@ export default {
   methods:{
     register(){
       if(this.data.password == this.data.passwordCheck) {
-      let api = `http://192.168.43.145:8800/user/register`
+      let api = `https://vert-choucroute-22094.herokuapp.com/user/register`
       let vm = this;
        axios.post(api,this.data).then((res)=>{
         if(res.data.result=="ok"){ //登入註冊成功

@@ -23,9 +23,8 @@ export default {
   methods:{
     getMovieData(){
     let movieId = this.$route.params.movieId ;
-     const cors = 'https://cors-anywhere.herokuapp.com/'; // use cors-anywhere to fetch api data
-    const url = `https://boiling-everglades-57930.herokuapp.com/running/${movieId}`; // origin api url
-    axios.get(`${cors}${url}`).then((res)=>{
+    const url = `https://vert-choucroute-22094.herokuapp.com/running/${movieId}`; // origin api url
+    axios.get(`${url}`).then((res)=>{
         this.myMovieData = res.data;
         console.log("成功獲取資料123")
         console.log(this.myMovieData)

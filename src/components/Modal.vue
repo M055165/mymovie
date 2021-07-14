@@ -10,8 +10,6 @@
 </template>
 
 
-
-
 <style lang="scss" scoped>
     div {
         border-radius: 5%;

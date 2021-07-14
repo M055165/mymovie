@@ -262,7 +262,7 @@ export default {
                 dateChoose : this.dateChoose,
               }
             console.log(data)
-            let api = `http://192.168.43.145:8800/order/add`
+            let api = `https://vert-choucroute-22094.herokuapp.com/order/add`
             axios.post(api,data).then((res)=>{
             if(res.data.status == 'ok') {
               this.modalConfirmFlag = true;
