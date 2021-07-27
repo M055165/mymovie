@@ -176,7 +176,7 @@ export default {
             console.log(res.data.data)
             sessionStorage.setItem("login",true)
             sessionStorage.setItem('account',res.data.data[0].account)
-            vm.$router.push(`/第一次`)
+            vm.$router.push(`/第一次02`)
         }
     })
     },
